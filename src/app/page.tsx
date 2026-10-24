@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { 
   Terminal, 
@@ -46,6 +47,7 @@ const INITIAL_LOGS: LogItem[] = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const [logs, setLogs] = useState<LogItem[]>([]);
   const [inputVal, setInputVal] = useState('');
   const [bootPercent, setBootPercent] = useState(18);
@@ -92,6 +94,7 @@ export default function Home() {
           { text: '  oc           - List Organizing Committee leadership', type: 'gray' },
           { text: '  categories   - Show RoboGames 2027 competition tracks', type: 'gray' },
           { text: '  social       - View official community and social channels', type: 'gray' },
+          { text: '  mascot       - Launch 3D Mascot Viewer (interactive models)', type: 'gray' },
           { text: '  main         - Open official portal (robo.cse.mrt.ac.lk)', type: 'gray' },
           { text: '  clear        - Clear terminal output', type: 'gray' }
         );
@@ -140,6 +143,17 @@ export default function Home() {
           { text: '3. Open Combat Track: Knockout BattleBots enclosed arena', type: 'gray' }
         );
         break;
+      case 'mascot':
+      case '/mascot':
+        newLogs.push(
+          { text: '[3D VIEWER] Initializing WebGL context...', type: 'yellow' },
+          { text: '[3D VIEWER] Loading mascot models — standby...', type: 'green' }
+        );
+        setMascotQuote('Opening the 3D hangar! Check out my squad!');
+        setLogs(newLogs);
+        setInputVal('');
+        setTimeout(() => router.push('/mascot'), 600);
+        return;
       case 'main':
         window.open('https://robo.cse.mrt.ac.lk/', '_blank');
         newLogs.push({ text: 'Redirecting to official site: robo.cse.mrt.ac.lk...', type: 'green' });
@@ -280,7 +294,7 @@ export default function Home() {
                 type="text"
                 value={inputVal}
                 onChange={(e) => setInputVal(e.target.value)}
-                placeholder="Type 'help', 'status', 'oc', or 'main'..."
+                placeholder="Type 'help', 'mascot', 'status', or 'oc'..."
                 className="terminal-input"
               />
               <button type="submit" className="btn-send" title="Send command">
