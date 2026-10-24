@@ -25,7 +25,7 @@ To ensure visual and contextual alignment with the official competition, the pub
 * **Committee Directory:** Contacts for Induru Adeesha (Chair), Sithum Fernando (Co-Chair), Devindi Wickramarathna (Delegate Lead), and Anuhas Ranasinghe (Tech Lead).
 * **Institutional Sponsors:** CSE Department (UoM), Institution of Engineers Sri Lanka (IESL), and SLT-Mobitel.
 
-All data was synthesized and documented into [`docs/robogames_details.md`](file:///c:/Users/sithu/MyWorks/My%20Softwares/Robogames2027/robogames_coming_soon/docs/robogames_details.md).
+All data was synthesized and documented into [`docs/robogames_details.md`](robogames_details.md).
 
 ---
 
@@ -94,7 +94,28 @@ Automated browser subagents were dispatched to `http://localhost:3000` to valida
 
 ---
 
-## 7. Deliverables Index
+## 8. Phase 6: Organizing Committee Expansion, Performance Optimization & Mobile UX
+
+Following review by the Organizing Committee, several refinements were completed:
+
+1. **Navbar Cleanup:** Removed the "OC STAGING PREVIEW" badge from the navigation bar, maintaining a cleaner brand representation alongside the primary portal destination.
+2. **Layout Streamlining:** Removed the three repetitive context cards above the footer, allowing the terminal console and mascot bot to be the primary focus of the page.
+3. **Organizing Committee Roster Expansion:**
+   * Added the Academic Advisor (Dr. Sulochana Sooriyarachchi) and key leads: Web Lead (Dulranga Dhawanitha), Design Lead (Dineth Thenuwara), Event Lead (Kaveen Hirumal), Finance Lead (Kavindu Jayalath), Logistic Lead (Sachithra Vithanage), and Editorial Lead (Sheereen Rizwan).
+   * Updated `docs/robogames_details.md`, `AGENTS.md`, and the interactive terminal `oc` command parser.
+4. **Mascot & Asset Performance Optimization (Fixing 10s delay):**
+   * **Root Cause:** The mascot image was served as an uncompressed 3000x3000px PNG weighing **9.2 MB**. In static export mode, Next.js serves static assets without runtime on-the-fly resizing. In addition, the University crest was 2.5 MB.
+   * **Solution:** Resized and generated a high-DPI 600x600 WebP asset (`battlebot_waving.webp`) at **93.9 KB** (a **99% reduction**), an optimized PNG fallback at 381.7 KB, and compressed the UoM logo down to 55.6 KB. Initial page payload was cut from > 12 MB to < 250 KB, reducing mascot rendering time from ~10 seconds to instantaneous (< 50ms).
+5. **Mobile UX Overhaul:**
+   * Enforced `font-size: 16px` on the terminal input field on mobile devices to prevent automatic iOS Safari viewport zoom on focus.
+   * Responsive navigation bar with adjusted logo proportions and touch targets.
+   * Sized action buttons for touch friendliness (`min-height: 44px`).
+   * Custom cyberpunk-themed scrollbars for the terminal body.
+   * Fully responsive typography and margins preventing any horizontal overflow across devices.
+
+---
+
+## 9. Deliverables Index
 
 | Document / Artifact | Path | Description |
 | :--- | :--- | :--- |
@@ -104,3 +125,4 @@ Automated browser subagents were dispatched to `http://localhost:3000` to valida
 | **CI Workflow** | `.github/workflows/ci.yml` | GitHub Actions pipeline for `main` and `dev` |
 | **Landing Application** | `src/app/` | Layout, page component, and Vanilla CSS design system |
 | **Static Production Export**| `out/` | Ready-to-host static HTML/CSS/JS bundles |
+

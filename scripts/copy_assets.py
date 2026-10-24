@@ -1,5 +1,6 @@
 import os
 import shutil
+from PIL import Image
 
 base = r"c:\Users\sithu\MyWorks\My Softwares\Robogames2027\robogames_coming_soon"
 public_dir = os.path.join(base, "public")
@@ -9,34 +10,39 @@ mascots_dir = os.path.join(public_dir, "mascots")
 os.makedirs(logos_dir, exist_ok=True)
 os.makedirs(mascots_dir, exist_ok=True)
 
-# Copy logos
-logo_mappings = {
+# Copy SVG logos directly (already lightweight)
+svg_logos = {
     os.path.join(base, "assets", "logos", "RoboGames logo", "Robo_2027_new_no_iesl.svg"): os.path.join(logos_dir, "robogames.svg"),
-    os.path.join(base, "assets", "logos", "RoboGames logo", "robogames logo no iesl transparent bg.png"): os.path.join(logos_dir, "robogames.png"),
     os.path.join(base, "assets", "logos", "CSE logo", "CSE Logo.svg"): os.path.join(logos_dir, "cse.svg"),
-    os.path.join(base, "assets", "logos", "CSE logo", "cse logo.png"): os.path.join(logos_dir, "cse.png"),
-    os.path.join(base, "assets", "logos", "UOM logo", "uom logo.png"): os.path.join(logos_dir, "uom.png"),
     os.path.join(base, "assets", "logos", "IESL Logo", "IESL.svg"): os.path.join(logos_dir, "iesl.svg"),
     os.path.join(base, "assets", "logos", "SLT logo", "slt-log.svg"): os.path.join(logos_dir, "slt.svg"),
 }
 
-for src, dst in logo_mappings.items():
+for src, dst in svg_logos.items():
     if os.path.exists(src):
         shutil.copy2(src, dst)
-        print(f"Copied logo: {os.path.basename(dst)}")
+        print(f"Copied SVG logo: {os.path.basename(dst)}")
 
-# Copy key mascots
-mascot_mappings = {
-    os.path.join(base, "assets", "mascots", "Battlebot robot", "battle bot robot waving.png"): os.path.join(mascots_dir, "battlebot_waving.png"),
-    os.path.join(base, "assets", "mascots", "Battlebot robot", "Welcoming non rusty.png"): os.path.join(mascots_dir, "battlebot_welcome.png"),
-    os.path.join(base, "assets", "mascots", "School Uni robot", "Friendly Green Rover Robot Pointing.png"): os.path.join(mascots_dir, "rover_pointing.png"),
-    os.path.join(base, "assets", "mascots", "School Uni robot", "Hovering Mecha Drone with Holographic Tablet.png"): os.path.join(mascots_dir, "drone_tablet.png"),
-    os.path.join(base, "assets", "mascots", "School Uni robot", "robot waving uni.png"): os.path.join(mascots_dir, "rover_waving.png"),
-}
+# Optimize raster logos
+if os.path.exists(os.path.join(base, "assets", "logos", "UOM logo", "uom logo.png")):
+    uom = Image.open(os.path.join(base, "assets", "logos", "UOM logo", "uom logo.png"))
+    uom.resize((250, 300), Image.Resampling.LANCZOS).save(os.path.join(logos_dir, "uom.png"), "PNG", optimize=True)
+    print("Optimized UOM logo")
 
-for src, dst in mascot_mappings.items():
-    if os.path.exists(src):
-        shutil.copy2(src, dst)
-        print(f"Copied mascot: {os.path.basename(dst)}")
+if os.path.exists(os.path.join(base, "assets", "logos", "CSE logo", "cse logo.png")):
+    cse = Image.open(os.path.join(base, "assets", "logos", "CSE logo", "cse logo.png"))
+    w, h = cse.size
+    cse.resize((300, int(h * (300 / w))), Image.Resampling.LANCZOS).save(os.path.join(logos_dir, "cse.png"), "PNG", optimize=True)
+    print("Optimized CSE logo")
 
-print("Asset copying complete!")
+# Optimize Mascot
+mascot_src = os.path.join(base, "assets", "mascots", "Battlebot robot", "battle bot robot waving.png")
+if os.path.exists(mascot_src):
+    m_img = Image.open(mascot_src)
+    m_opt = m_img.resize((600, 600), Image.Resampling.LANCZOS)
+    m_opt.save(os.path.join(mascots_dir, "battlebot_waving.webp"), "WEBP", quality=92, method=6)
+    m_opt.save(os.path.join(mascots_dir, "battlebot_waving.png"), "PNG", optimize=True)
+    print("Optimized battlebot_waving (WebP & PNG)")
+
+print("Asset copying and optimization complete!")
+

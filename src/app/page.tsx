@@ -5,12 +5,10 @@ import Image from 'next/image';
 import { 
   Terminal, 
   ExternalLink, 
-  ShieldAlert, 
   Radio, 
   Cpu, 
   Sparkles, 
   Send, 
-  Clock,
   ArrowRight,
   MessageSquare
 } from 'lucide-react';
@@ -120,10 +118,17 @@ export default function Home() {
       case 'oc':
         newLogs.push(
           { text: 'RoboGames 2027 Organizing Committee:', type: 'yellow' },
+          { text: '  Academic Advisor: Dr. Sulochana Sooriyarachchi', type: 'gray' },
           { text: '  Chairperson: Induru Adeesha', type: 'gray' },
           { text: '  Co-Chairperson: Sithum Fernando', type: 'gray' },
           { text: '  Delegate Lead: Devindi Wickramarathna', type: 'gray' },
-          { text: '  Tech Lead: Anuhas Ranasinghe', type: 'gray' }
+          { text: '  Tech Lead: Anuhas Ranasinghe', type: 'gray' },
+          { text: '  Web Lead: Dulranga Dhawanitha', type: 'gray' },
+          { text: '  Design Lead: Dineth Thenuwara', type: 'gray' },
+          { text: '  Event Lead: Kaveen Hirumal', type: 'gray' },
+          { text: '  Finance Lead: Kavindu Jayalath', type: 'gray' },
+          { text: '  Logistic Lead: Sachithra Vithanage', type: 'gray' },
+          { text: '  Editorial Lead: Sheereen Rizwan', type: 'gray' }
         );
         setMascotQuote('Shoutout to the OC team making this happen!');
         break;
@@ -182,7 +187,7 @@ export default function Home() {
               style={{ width: 'auto', height: '28px' }}
             />
             <div className="brand-divider" />
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="brand-name-group">
               <Image 
                 src="/logos/robogames.svg" 
                 alt="RoboGames 2027" 
@@ -196,11 +201,6 @@ export default function Home() {
           </div>
 
           <div className="nav-actions">
-            <div className="oc-badge">
-              <span className="pulse-dot" />
-              <span>OC STAGING PREVIEW</span>
-            </div>
-
             <a
               href="https://robo.cse.mrt.ac.lk/"
               target="_blank"
@@ -215,7 +215,7 @@ export default function Home() {
       </header>
 
       {/* Main Content Area */}
-      <main className="content-wrapper" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <main className="content-wrapper main-layout">
         
         {/* Hero Section */}
         <section className="hero-section">
@@ -262,9 +262,9 @@ export default function Home() {
 
             <div className="terminal-body" ref={terminalBodyRef}>
               <div className="terminal-banner">
-                ==========================================================<br />
+                ------------------------------------------------<br />
                 &gt; ROBO_SYSTEM BOOT LOADER // MORATUWA ROBOTICS MATRIX<br />
-                ==========================================================
+                ------------------------------------------------
               </div>
               {logs.map((log, index) => (
                 <div key={index} className={`log-line ${getLogClass(log.type)}`}>
@@ -300,7 +300,7 @@ export default function Home() {
 
               <div className="mascot-figure">
                 <Image
-                  src="/mascots/battlebot_waving.png"
+                  src="/mascots/battlebot_waving.webp"
                   alt="RoboGames BattleBot Mascot"
                   width={160}
                   height={160}
@@ -364,45 +364,6 @@ export default function Home() {
 
           </div>
 
-        </section>
-
-        {/* Feature / Context Cards Strip */}
-        <section className="features-strip">
-          <div className="feature-box">
-            <div className="feature-icon-box">
-              <ShieldAlert size={18} />
-            </div>
-            <div>
-              <h4 className="feature-heading">OC Internal Preview</h4>
-              <p className="feature-text">
-                This domain is strictly for internal committee testing. Public announcements will occur via the official channels.
-              </p>
-            </div>
-          </div>
-
-          <div className="feature-box">
-            <div className="feature-icon-box">
-              <Cpu size={18} />
-            </div>
-            <div>
-              <h4 className="feature-heading">3 Arenas in 2027</h4>
-              <p className="feature-text">
-                School (Line-follower hardware), University (Autonomous algorithms), and Open BattleBots combat.
-              </p>
-            </div>
-          </div>
-
-          <div className="feature-box">
-            <div className="feature-icon-box">
-              <Clock size={18} />
-            </div>
-            <div>
-              <h4 className="feature-heading">Registration Opening Soon</h4>
-              <p className="feature-text">
-                Team registration will officially open on the main website. Keep your engineering teams assembled!
-              </p>
-            </div>
-          </div>
         </section>
 
       </main>

@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'robogames.work // Arena Boot Sequence',
+  title: 'robogames.work',
   description: 'Under construction. Internal preview for the RoboGames 2027 Organizing Committee.',
   robots: {
     index: false,
