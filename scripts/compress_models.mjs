@@ -15,8 +15,9 @@ import { dirname } from 'path';
 
 import { NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS } from '@gltf-transform/extensions';
-import { dedup, quantize, prune, draco } from '@gltf-transform/functions';
+import { dedup, quantize, prune, draco, textureCompress } from '@gltf-transform/functions';
 import draco3d from 'draco3dgltf';
+import sharp from 'sharp';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -63,6 +64,12 @@ async function main() {
       prune(),                // Remove unused nodes/materials
       quantize(),             // Quantize vertex attributes
       draco(),                // Apply Draco compression
+      textureCompress({       // Convert textures to optimized WebP
+        encoder: sharp,
+        targetFormat: 'webp',
+        resize: [1024, 1024],
+        quality: 85,
+      }),
     );
 
     // Write the optimized file

@@ -3,9 +3,14 @@
 import React, { useState, useRef, Suspense, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Environment, ContactShadows, Html } from '@react-three/drei';
+import { OrbitControls, useGLTF, Environment, ContactShadows, Html, useProgress } from '@react-three/drei';
 import { ArrowLeft, ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react';
 import * as THREE from 'three';
+
+// Configure local Draco decoder path
+if (typeof window !== 'undefined') {
+  useGLTF.setDecoderPath('/draco/');
+}
 
 /* ─── Model Registry ──────────────────────────────────────────── */
 interface MascotModel {
@@ -112,13 +117,25 @@ function RotatingModel({ model, isHovering }: { model: MascotModel; isHovering: 
   );
 }
 
-/* ─── Loading Spinner ──────────────────────────────────────── */
-function ModelLoader() {
+/* ─── Sci-Fi HUD Model Loader ───────────────────────────────── */
+function ModelLoader({ botColor = '#F8D826' }: { botColor?: string }) {
+  const { progress } = useProgress();
+  const roundedProgress = Math.min(100, Math.max(0, Math.round(progress)));
+
   return (
     <Html center>
-      <div className="model-loader">
+      <div className="model-loader" style={{ '--loader-color': botColor } as React.CSSProperties}>
         <div className="model-loader-spinner" />
-        <span>Loading model...</span>
+        <div className="model-loader-telemetry">
+          <div className="model-loader-label">SYNCING TELEMETRY</div>
+          <div className="model-loader-track">
+            <div 
+              className="model-loader-bar" 
+              style={{ width: `${roundedProgress}%` }}
+            />
+          </div>
+          <div className="model-loader-pct">{roundedProgress}%</div>
+        </div>
       </div>
     </Html>
   );
@@ -192,12 +209,38 @@ export default function MascotPage() {
 
   const model = MASCOT_MODELS[currentIndex];
 
-  // Preload all models
+  // Sequential background preloading:
+  // Allocate 100% initial bandwidth to current model so it renders immediately.
+  // Preload remaining models in the background after initial render.
   useEffect(() => {
-    MASCOT_MODELS.forEach(m => {
-      useGLTF.preload(m.path);
-    });
-  }, []);
+    let timer: ReturnType<typeof setTimeout>;
+
+    const schedulePreload = () => {
+      const remainingModels = MASCOT_MODELS.filter((_, idx) => idx !== currentIndex);
+      let step = 0;
+      const loadNext = () => {
+        if (step < remainingModels.length) {
+          useGLTF.preload(remainingModels[step].path);
+          step++;
+          timer = setTimeout(loadNext, 1200);
+        }
+      };
+      timer = setTimeout(loadNext, 1200);
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const handle = (window as any).requestIdleCallback(schedulePreload, { timeout: 3000 });
+      return () => {
+        clearTimeout(timer);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ('cancelIdleCallback' in window) (window as any).cancelIdleCallback(handle);
+      };
+    } else {
+      schedulePreload();
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex]);
 
   // Trigger intro splash card first time each bot is viewed
   useEffect(() => {
@@ -391,7 +434,7 @@ export default function MascotPage() {
             <Environment preset="city" />
 
             {/* Model */}
-            <Suspense fallback={<ModelLoader />}>
+            <Suspense fallback={<ModelLoader botColor={model.botColor} />}>
               <RotatingModel model={model} isHovering={isHovering} />
             </Suspense>
 
