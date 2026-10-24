@@ -121,13 +121,14 @@ export default function Home() {
           { text: '  Academic Advisor: Dr. Sulochana Sooriyarachchi', type: 'gray' },
           { text: '  Chairperson: Induru Adeesha', type: 'gray' },
           { text: '  Co-Chairperson: Sithum Fernando', type: 'gray' },
-          { text: '  Delegate Lead: Devindi Wickramarathna', type: 'gray' },
-          { text: '  Tech Lead: Anuhas Ranasinghe', type: 'gray' },
-          { text: '  Web Lead: Dulranga Dhawanitha', type: 'gray' },
+          { text: '  Technical Lead: Anuhas Ranasinghe', type: 'gray' },
           { text: '  Design Lead: Dineth Thenuwara', type: 'gray' },
-          { text: '  Event Lead: Kaveen Hirumal', type: 'gray' },
+          { text: '  Publicity Lead: Thisath Kariyawasam', type: 'gray' },
+          { text: '  Web Lead: Dulranga Dhawanitha', type: 'gray' },
           { text: '  Finance Lead: Kavindu Jayalath', type: 'gray' },
+          { text: '  Event Lead: Kaveen Hirumal', type: 'gray' },
           { text: '  Logistic Lead: Sachithra Vithanage', type: 'gray' },
+          { text: '  Delegate Lead: Devindi Wickramarathna', type: 'gray' },
           { text: '  Editorial Lead: Sheereen Rizwan', type: 'gray' }
         );
         setMascotQuote('Shoutout to the OC team making this happen!');

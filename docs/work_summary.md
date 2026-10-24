@@ -101,7 +101,7 @@ Following review by the Organizing Committee, several refinements were completed
 1. **Navbar Cleanup:** Removed the "OC STAGING PREVIEW" badge from the navigation bar, maintaining a cleaner brand representation alongside the primary portal destination.
 2. **Layout Streamlining:** Removed the three repetitive context cards above the footer, allowing the terminal console and mascot bot to be the primary focus of the page.
 3. **Organizing Committee Roster Expansion:**
-   * Added the Academic Advisor (Dr. Sulochana Sooriyarachchi) and key leads: Web Lead (Dulranga Dhawanitha), Design Lead (Dineth Thenuwara), Event Lead (Kaveen Hirumal), Finance Lead (Kavindu Jayalath), Logistic Lead (Sachithra Vithanage), and Editorial Lead (Sheereen Rizwan).
+   * Added the Academic Advisor (Dr. Sulochana Sooriyarachchi) and the full leadership team ordered as: Technical Lead (Anuhas Ranasinghe), Design Lead (Dineth Thenuwara), Publicity Lead (Thisath Kariyawasam), Web Lead (Dulranga Dhawanitha), Finance Lead (Kavindu Jayalath), Event Lead (Kaveen Hirumal), Logistic Lead (Sachithra Vithanage), Delegate Lead (Devindi Wickramarathna), and Editorial Lead (Sheereen Rizwan).
    * Updated `docs/robogames_details.md`, `AGENTS.md`, and the interactive terminal `oc` command parser.
 4. **Mascot & Asset Performance Optimization (Fixing 10s delay):**
    * **Root Cause:** The mascot image was served as an uncompressed 3000x3000px PNG weighing **9.2 MB**. In static export mode, Next.js serves static assets without runtime on-the-fly resizing. In addition, the University crest was 2.5 MB.

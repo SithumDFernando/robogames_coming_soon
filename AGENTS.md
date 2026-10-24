@@ -130,11 +130,13 @@ If technical clarifications are required regarding event rules or institutional 
 * **Academic Advisor:** Dr. Sulochana Sooriyarachchi
 * **Chairperson:** Induru Adeesha (`induru.24@cse.mrt.ac.lk` | `+94 71 033 4085`)
 * **Co-Chairperson:** Sithum Fernando (`sithum.24@cse.mrt.ac.lk` | `+94 77 434 8111`)
-* **Delegate Lead:** Devindi Wickramarathna (`devindi.24@cse.mrt.ac.lk` | `+94 70 166 3373`)
-* **Tech Lead:** Anuhas Ranasinghe (`anuhas.24@cse.mrt.ac.lk` | `+94 76 965 2770`)
-* **Web Lead:** Dulranga Dhawanitha
+* **Technical Lead:** Anuhas Ranasinghe (`anuhas.24@cse.mrt.ac.lk` | `+94 76 965 2770`)
 * **Design Lead:** Dineth Thenuwara
-* **Event Lead:** Kaveen Hirumal
+* **Publicity Lead:** Thisath Kariyawasam
+* **Web Lead:** Dulranga Dhawanitha
 * **Finance Lead:** Kavindu Jayalath
+* **Event Lead:** Kaveen Hirumal
 * **Logistic Lead:** Sachithra Vithanage
+* **Delegate Lead:** Devindi Wickramarathna (`devindi.24@cse.mrt.ac.lk` | `+94 70 166 3373`)
 * **Editorial Lead:** Sheereen Rizwan
+
