@@ -15,6 +15,24 @@ import {
   MessageSquare
 } from 'lucide-react';
 
+const InstagramIcon = ({ size = 13 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{ flexShrink: 0 }}
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
 interface LogItem {
   text: string;
   type: 'white' | 'yellow' | 'green' | 'amber' | 'gray' | 'red';
@@ -75,9 +93,20 @@ export default function Home() {
           { text: '  status       - Check system readiness & telemetry', type: 'gray' },
           { text: '  oc           - List Organizing Committee leadership', type: 'gray' },
           { text: '  categories   - Show RoboGames 2027 competition tracks', type: 'gray' },
+          { text: '  social       - View official community and social channels', type: 'gray' },
           { text: '  main         - Open official portal (robo.cse.mrt.ac.lk)', type: 'gray' },
           { text: '  clear        - Clear terminal output', type: 'gray' }
         );
+        break;
+      case 'social':
+      case 'instagram':
+        newLogs.push(
+          { text: 'Official RoboGames Community & Socials:', type: 'yellow' },
+          { text: '  Instagram: @robogames__ (instagram.com/robogames__)', type: 'gray' },
+          { text: '  WhatsApp Channel: whatsapp.com/channel/0029VbE3zlc7IUYcNUqb9n0S', type: 'gray' },
+          { text: '  Main Portal: robo.cse.mrt.ac.lk', type: 'gray' }
+        );
+        setMascotQuote('Follow our journey on Instagram and WhatsApp!');
         break;
       case 'status':
         newLogs.push(
@@ -309,15 +338,27 @@ export default function Home() {
                   <ArrowRight size={14} />
                 </a>
 
-                <a
-                  href="https://whatsapp.com/channel/0029VbE3zlc7IUYcNUqb9n0S"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp-action"
-                >
-                  <MessageSquare size={13} />
-                  <span>Follow on WhatsApp</span>
-                </a>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                  <a
+                    href="https://whatsapp.com/channel/0029VbE3zlc7IUYcNUqb9n0S"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-whatsapp-action"
+                  >
+                    <MessageSquare size={13} />
+                    <span>WhatsApp</span>
+                  </a>
+
+                  <a
+                    href="https://www.instagram.com/robogames__?dlrf=YngwdjVqa2JhMmVq"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-instagram-action"
+                  >
+                    <InstagramIcon size={13} />
+                    <span>Instagram</span>
+                  </a>
+                </div>
               </div>
             </div>
 
